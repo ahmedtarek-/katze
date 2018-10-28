@@ -1,0 +1,9 @@
+*.pyc
+*.db
+.DS_Store
+__pycache__
+env/
+htmlcov/
+static/
+media/
+*.sqlite3
