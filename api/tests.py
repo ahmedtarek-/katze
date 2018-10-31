@@ -7,16 +7,16 @@ class CatsAPITest(APITestCase):
     # Test for 5 cats endpoint
     client = APIClient()
 
-    def setUp(self):
-        url = reverse('cats')
+    # def setUp(self):
+        # url = reverse('cats-api')
 
     def test_get_five_cats(self):
         """
         This test ensures that we get five cats whenever
         we submit request to the cats endpoint
         """
-        url = reverse('cats')
-        response = self.client.get(reverse(url))
+        url = reverse('cats-api')
+        response = self.client.get(url)
 
         self.assertEqual(len(response.data), 5)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -27,8 +27,8 @@ class CatsAPITest(APITestCase):
         we submit request to the cats endpoint
         """
         tag = "jump"
-        url = reverse('cats', args=[tag])
-        response = self.client.get(reverse(url))
+        url = reverse('cats-api')
+        response = self.client.get(url, {"tag": tag})
 
         self.assertEqual(len(response.data), 5)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
