@@ -44,12 +44,13 @@ will return
 * Django: 2.1.2
 
 ## Cache
-* Uses Django DatabaseCache
+* Uses Django DatabaseCache to store tag/paths as key/value pair
+* Uses filesystem to store actual images in server to be able to serve it
 
 ## Git commits pattern
 All commits follows this pattern
-'[tag] description'
+```[tag] description```
 
 ## Improvements
-1. Only implemented model tests.
-2. Add tests for the scraper module and the cron job
+1. Use documentation package (swagger or redoc)
+2. Separate tests for each service
