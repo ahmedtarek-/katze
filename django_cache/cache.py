@@ -1,5 +1,4 @@
 from django.core.files.storage import FileSystemStorage
-from django.contrib.sites.models import Site
 from django.core.cache import cache
 
 
@@ -11,7 +10,6 @@ class Cache:
     paths (values)
     """
     DEFAULT_IMG_EXTENSION = 'png'
-    DOMAIN_BASE_URL = Site.objects.get_current().domain
 
     def get(self, key):
         return cache.get(key)
@@ -37,10 +35,9 @@ class Cache:
         fs = FileSystemStorage()
 
         fs.save(image_name, image)
-        path = ''.join([self.DOMAIN_BASE_URL, fs.url(image_name)])
+        path = fs.url(image_name)
 
         return path
-
 
     def _construct_image_name(self, tag, number):
         return f"{tag}_{number}.{self.DEFAULT_IMG_EXTENSION}"

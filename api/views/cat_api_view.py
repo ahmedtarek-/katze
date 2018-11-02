@@ -36,9 +36,10 @@ class CatApiView(GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         tag = self._get_valid_tag(kwargs)
+        base_url = request.get_host()
 
         try:
-            data = self._get_images_with_tag(tag)
+            data = self._get_images_paths(tag, base_url)
         except requests.exceptions.ConnectionError:
             return Response(
                 {'details': 'Connection failed, please try again later'},
@@ -58,16 +59,16 @@ class CatApiView(GenericAPIView):
         tag = serializer.validated_data['tag']
         return tag
 
-    def _get_images_with_tag(self, tag):
+    def _get_images_paths(self, tag, base_url):
         """get images from cache or from external api"""
         images_paths = cache.get(tag)
         if not images_paths:
             images = catsExternalApi.call(tag)
             images_paths = cache.set(tag, images)
 
-        images_data = self._construct_data_object(images_paths)
+        images_data = self._construct_data_object(images_paths, base_url)
 
         return images_data
 
-    def _construct_data_object(self, images_paths):
-        return [{'img': path} for path in images_paths]
+    def _construct_data_object(self, images_paths, base_url):
+        return [{'img': ''.join([base_url, path])} for path in images_paths]
