@@ -53,4 +53,4 @@ All commits follows this pattern
 
 ## Improvements
 1. Use documentation package (swagger or redoc)
-2. Separate tests for each service
+2. Separate tests for each module (each module should be completely separate service)
