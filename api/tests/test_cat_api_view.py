@@ -2,6 +2,8 @@ from django.urls import reverse
 from rest_framework.test import APITestCase, APIClient
 from rest_framework.views import status
 
+from django_cache import cache
+
 
 class CatsAPITest(APITestCase):
     """
@@ -41,3 +43,10 @@ class CatsAPITest(APITestCase):
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_images_are_cached(self):
+        url = reverse('cats-api', kwargs={'tag': self.valid_tag})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(cache.get(self.valid_tag))
