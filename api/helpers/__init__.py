@@ -1,1 +1,0 @@
-from .cats_external_api import call_external_cats_api
