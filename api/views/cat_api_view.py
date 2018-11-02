@@ -71,4 +71,5 @@ class CatApiView(GenericAPIView):
         return images_data
 
     def _construct_data_object(self, images_paths, base_url):
+        """constructs absolute paths based"""
         return [{'img': ''.join([base_url, path])} for path in images_paths]

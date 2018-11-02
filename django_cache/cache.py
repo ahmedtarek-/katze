@@ -15,13 +15,13 @@ class Cache:
         return cache.get(key)
 
     def set(self, key, images):
-        paths = self._save_images(key, images)
+        paths = self._store_images(key, images)
         cache.set(key, paths)
 
         return paths
 
-    def _save_images(self, key, images):
-        """saves images in file system and returns paths"""
+    def _store_images(self, key, images):
+        """stores images and returns paths"""
 
         paths = []
         for i, image in enumerate(images):
@@ -32,6 +32,7 @@ class Cache:
         return paths
 
     def _save_image(self, image, image_name):
+        """saves a signle image into filesystem"""
         fs = FileSystemStorage()
 
         fs.save(image_name, image)
@@ -40,4 +41,8 @@ class Cache:
         return path
 
     def _construct_image_name(self, tag, number):
+        """
+        Constructs the unique image name with extension
+        ex. 'funny_3.png'
+        """
         return f"{tag}_{number}.{self.DEFAULT_IMG_EXTENSION}"
