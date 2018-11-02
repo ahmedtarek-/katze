@@ -83,6 +83,17 @@ DATABASES = {
 }
 
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'KEY_PREFIX': 'katze',
+        'LOCATION': 'cats_images',
+        'TIMEOUT': None,
+        'MAX_ENTRIES': 1000,
+    }
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -121,5 +132,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'api', 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'django_cache', 'media')
 MEDIA_URL = '/media/'
